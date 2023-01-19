@@ -65,13 +65,13 @@ stages:
             displayName: 'push package'
             inputs:
               command         : push
-              packagesToPush  : 'src/Extensions.ClaimsPrincipal/bin/${{ variables.buildConfiguration }}/*.nupkg'
+              packagesToPush  : 'src/Extensions.Authorization/bin/${{ variables.buildConfiguration }}/*.nupkg'
               publishVstsFeed : ${{ variables.vstsFeed }}
 
           - task: ArchiveFiles@2
             displayName: 'archive build'
             inputs:
-              rootFolderOrFile  : 'src/Extensions.ClaimsPrincipal/bin/${{ variables.buildConfiguration }}/net7.0/'
+              rootFolderOrFile  : 'src/Extensions.Authorization/bin/${{ variables.buildConfiguration }}/net7.0/'
               includeRootFolder : false
               archiveFile       : '$(Build.BinariesDirectory)/$(Build.BuildNumber).zip'
               verbose           : true
