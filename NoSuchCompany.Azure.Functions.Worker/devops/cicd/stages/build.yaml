@@ -43,7 +43,7 @@ stages:
             displayName: 'update version'
             inputs:
               targetType  : filePath
-              filePath     : '$(Build.SourcesDirectory)/devops/cicd/scripts/update_version.sh'
+              filePath     : 'NoSuchCompany.Azure.Functions.Worker/devops/cicd/scripts/update_version.sh'
               arguments   : '$(Build.BuildNumber)'
 
           - task: DotNetCoreCLI@2
