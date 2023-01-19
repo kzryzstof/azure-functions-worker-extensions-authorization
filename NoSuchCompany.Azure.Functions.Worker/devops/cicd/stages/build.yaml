@@ -58,7 +58,7 @@ stages:
             displayName: 'push package'
             inputs:
               command         : push
-              packagesToPush  : 'src/StorageManager.Proxy/bin/${{ variables.buildConfiguration }}/*.nupkg'
+              packagesToPush  : 'src/Extensions.ClaimsPrincipal/bin/${{ variables.buildConfiguration }}/*.nupkg'
               publishVstsFeed : ${{ variables.vstsFeed }}
 
           - task: ArchiveFiles@2
