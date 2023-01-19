@@ -5,8 +5,8 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <LangVersion>default</LangVersion>
-        <AssemblyName>NoSuchCompany.Azure.Functions.Worker.Extensions</AssemblyName>
-        <RootNamespace>NoSuchCompany.Azure.Functions.Worker.Extensions</RootNamespace>
+        <AssemblyName>NoSuchCompany.Azure.Functions.Worker.Extensions.Bindings</AssemblyName>
+        <RootNamespace>NoSuchCompany.Azure.Functions.Worker.Extensions.Bindings</RootNamespace>
         <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
         <PackageId>NoSuchCompany.Azure.Functions.Worker.Extensions.ClaimsPrincipal</PackageId>
         <Authors>NoSuch Company</Authors>
@@ -16,6 +16,10 @@
 
     <ItemGroup>
       <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Abstractions" Version="1.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Extensions.Authorization\Extensions.Authorization.csproj" />
     </ItemGroup>
 
 </Project>

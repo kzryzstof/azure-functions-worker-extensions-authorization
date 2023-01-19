@@ -1,8 +1,8 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions.ClaimsPrincipal", "src\Extensions.ClaimsPrincipal\Extensions.ClaimsPrincipal.csproj", "{349F8332-1410-48E1-AA40-5411B4C828CE}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{30C060FE-79BF-4EC7-AC73-9FBB6A8B059C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Extensions.Authorization", "src\Extensions.Authorization\Extensions.Authorization.csproj", "{09C6155C-4B67-4950-B7F1-1D97008DAA34}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -10,12 +10,12 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{349F8332-1410-48E1-AA40-5411B4C828CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{349F8332-1410-48E1-AA40-5411B4C828CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{349F8332-1410-48E1-AA40-5411B4C828CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{349F8332-1410-48E1-AA40-5411B4C828CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09C6155C-4B67-4950-B7F1-1D97008DAA34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09C6155C-4B67-4950-B7F1-1D97008DAA34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09C6155C-4B67-4950-B7F1-1D97008DAA34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09C6155C-4B67-4950-B7F1-1D97008DAA34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{349F8332-1410-48E1-AA40-5411B4C828CE} = {30C060FE-79BF-4EC7-AC73-9FBB6A8B059C}
+		{09C6155C-4B67-4950-B7F1-1D97008DAA34} = {30C060FE-79BF-4EC7-AC73-9FBB6A8B059C}
 	EndGlobalSection
 EndGlobal

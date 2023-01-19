@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <AssemblyName>NoSuchCompany.Azure.Functions.Worker.Extensions.Authorization</AssemblyName>
+        <RootNamespace>NoSuchCompany.Azure.Functions.Worker.Extensions.Authorization</RootNamespace>
+        <LangVersion>default</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="CommunityToolkit.Diagnostics" Version="8.1.0" />
+      <PackageReference Include="Microsoft.Azure.Functions.Worker.Core" Version="1.8.0" />
+      <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Abstractions" Version="1.1.0" />
+      <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
+      <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="6.25.1" />
+      <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.25.1" />
+    </ItemGroup>
+
+</Project>
