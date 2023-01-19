@@ -1,0 +1,34 @@
+name: $(Date:yy).$(Date:MM).$(Date:dd)$(Rev:rr)
+
+trigger:
+  branches:
+    include:
+      - main
+    exclude:
+      - rel/old*
+  paths:
+    include:
+      - '*'
+
+variables:
+  - name  : poolName
+    #value : 'Azure Pipelines'
+    value : 'On-premise Pool'
+  - name  : vmImageName
+    #value : 'ubuntu-latest'
+    value : 'macos-latest'
+
+parameters:
+  - name        : EnforceBranchControlPolicy
+    displayName : Enforce Branch Control Policy
+    type        : boolean
+    default     : true
+
+stages:
+  - template: 'stages/build.yaml'
+    parameters:
+      name                          : Build
+      enforceBranchControlPolicy    : ${{ parameters.EnforceBranchControlPolicy }}
+      pipelineEnvironmentVariables  : '../environment_variables/build.yaml'
+      poolName                      : $(poolName)
+      vmImage                       : $(vmImageName)

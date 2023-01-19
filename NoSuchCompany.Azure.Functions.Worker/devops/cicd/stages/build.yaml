@@ -1,0 +1,84 @@
+parameters:
+  - name: name
+    type: string
+  - name: pipelineEnvironmentVariables
+    type: string
+  - name: poolName
+    type: string
+  - name: vmImage
+    type: string
+  - name: EnforceBranchControlPolicy
+    type: boolean
+
+stages:
+  - stage: '${{ parameters.name }}'
+    jobs:
+      - job: Build
+        displayName: 'Build'
+        variables:
+          - template  : ${{ parameters.pipelineEnvironmentVariables }}
+          - name      : disable.coverage.autogenerate
+            value     : true
+
+        workspace:
+          clean: all
+
+        pool:
+          name    : ${{ parameters.poolName }}
+          vmImage : ${{ parameters.vmImage }}
+
+        steps:
+          - task: UseDotNet@2
+            displayName: 'install .net 7.0 SDK'
+            inputs:
+              version: 7.x
+
+          - task: richardfennellBM.BM-VSTS-Versioning-Task.Version-DotNetCoreAssemblies-Task.VersionDotNetCoreAssemblies@2
+            displayName: 'version'
+            inputs:
+              VersionRegex: '\d+\.\d+\.\d+'
+              AddDefault: true
+
+          - task: DotNetCoreCLI@2
+            displayName: 'restore'
+            inputs:
+              command         : restore
+              projects        : ${{ variables.csprojFiles }}
+              feedsToUse      : 'select'
+              vstsFeed        : ${{ variables.vstsFeed }}
+              includeNuGetOrg : true
+
+          - task: DotNetCoreCLI@2
+            displayName: build
+            inputs:
+              projects  : ${{ variables.csprojFiles }}
+              arguments : '--configuration ${{ variables.buildConfiguration }} --no-restore'
+
+          - task: DotNetCoreCLI@2
+            displayName: 'push package'
+            inputs:
+              command         : push
+              packagesToPush  : 'src/StorageManager.Proxy/bin/${{ variables.buildConfiguration }}/*.nupkg'
+              publishVstsFeed : ${{ variables.vstsFeed }}
+
+          - task: ArchiveFiles@2
+            displayName: 'archive build'
+            inputs:
+              rootFolderOrFile  : 'src/bin/${{ variables.buildConfiguration }}/net7.0/'
+              includeRootFolder : false
+              archiveFile       : '$(Build.BinariesDirectory)/$(Build.BuildNumber).zip'
+              verbose           : true
+
+          - task: CopyFiles@2
+            displayName: 'copy build'
+            inputs:
+              SourceFolder      : '$(Build.BinariesDirectory)'
+              Contents          : '$(Build.BuildNumber).zip'
+              TargetFolder      : '$(Build.ArtifactStagingDirectory)/build'
+              CleanTargetFolder : true
+
+          - task: PublishBuildArtifacts@1
+            displayName: 'publish build'
+            inputs:
+              pathToPublish : '$(Build.ArtifactStagingDirectory)/build'
+              artifactName  : 'Latest-Build'
