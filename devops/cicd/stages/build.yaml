@@ -43,7 +43,7 @@ stages:
             displayName: 'update version'
             inputs:
               targetType  : filePath
-              filePath     : 'NoSuchCompany.Azure.Functions.Worker/devops/cicd/scripts/update_version.sh'
+              filePath     : 'devops/cicd/scripts/update_version.sh'
               arguments   : '$(Build.BuildNumber)'
 
           - task: DotNetCoreCLI@2
@@ -65,13 +65,13 @@ stages:
             displayName: 'push package'
             inputs:
               command         : push
-              packagesToPush  : 'NoSuchCompany.Azure.Functions.Worker/src/Extensions.ClaimsPrincipal/bin/${{ variables.buildConfiguration }}/*.nupkg'
+              packagesToPush  : 'src/Extensions.ClaimsPrincipal/bin/${{ variables.buildConfiguration }}/*.nupkg'
               publishVstsFeed : ${{ variables.vstsFeed }}
 
           - task: ArchiveFiles@2
             displayName: 'archive build'
             inputs:
-              rootFolderOrFile  : 'NoSuchCompany.Azure.Functions.Worker/src/Extensions.ClaimsPrincipal/bin/${{ variables.buildConfiguration }}/net7.0/'
+              rootFolderOrFile  : 'src/Extensions.ClaimsPrincipal/bin/${{ variables.buildConfiguration }}/net7.0/'
               includeRootFolder : false
               archiveFile       : '$(Build.BinariesDirectory)/$(Build.BuildNumber).zip'
               verbose           : true
