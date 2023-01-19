@@ -39,6 +39,13 @@ stages:
               VersionRegex: '\d+\.\d+\.\d+'
               AddDefault: true
 
+          - task: Bash@3
+            displayName: 'update version'
+            inputs:
+              targetType  : filePath
+              filePath     : '$(Build.SourcesDirectory)/devops/scripts/update_version.sh'
+              arguments   : '$(Build.BuildNumber)'
+
           - task: DotNetCoreCLI@2
             displayName: 'restore'
             inputs:
