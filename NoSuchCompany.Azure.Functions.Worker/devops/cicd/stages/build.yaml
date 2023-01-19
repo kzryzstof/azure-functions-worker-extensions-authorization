@@ -43,7 +43,7 @@ stages:
             displayName: 'restore'
             inputs:
               command         : restore
-              projects        : ${{ variables.csprojFiles }}
+              projects        : ${{ variables.csProjRootPath }}
               feedsToUse      : 'select'
               vstsFeed        : ${{ variables.vstsFeed }}
               includeNuGetOrg : true
@@ -51,7 +51,7 @@ stages:
           - task: DotNetCoreCLI@2
             displayName: build
             inputs:
-              projects  : ${{ variables.csprojFiles }}
+              projects  : ${{ variables.csProjRootPath }}
               arguments : '--configuration ${{ variables.buildConfiguration }} --no-restore'
 
           - task: DotNetCoreCLI@2
@@ -64,7 +64,7 @@ stages:
           - task: ArchiveFiles@2
             displayName: 'archive build'
             inputs:
-              rootFolderOrFile  : 'src/bin/${{ variables.buildConfiguration }}/net7.0/'
+              rootFolderOrFile  : 'src/Extensions.ClaimsPrincipal/bin/${{ variables.buildConfiguration }}/net7.0/'
               includeRootFolder : false
               archiveFile       : '$(Build.BinariesDirectory)/$(Build.BuildNumber).zip'
               verbose           : true

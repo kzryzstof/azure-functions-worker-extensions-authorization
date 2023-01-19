@@ -1,8 +1,6 @@
 variables:
   - name: csProjRootPath
     value: '**/*.csproj'
-  - name: csProjTestPath
-    value: '**/*Tests.csproj'
   - name: buildConfiguration
     value: 'Release'
   - name: vstsFeed
