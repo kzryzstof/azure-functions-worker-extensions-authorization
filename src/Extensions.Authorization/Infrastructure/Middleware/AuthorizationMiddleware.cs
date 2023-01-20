@@ -24,8 +24,8 @@ internal sealed class AuthorizationMiddleware : IFunctionsWorkerMiddleware
         Guard.IsNotNull(logger);
         Guard.IsNotNull(authorizationService);
 
-        this._logger = logger;
-        this._authorizationService = authorizationService;
+        _logger = logger;
+        _authorizationService = authorizationService;
     }
 
     public async Task Invoke(FunctionContext context, FunctionExecutionDelegate next)
@@ -42,7 +42,7 @@ internal sealed class AuthorizationMiddleware : IFunctionsWorkerMiddleware
 
             try
             {
-                var claimsPrincipal = await this._authorizationService.AuthorizeAsync(httpRequestData);
+                var claimsPrincipal = await _authorizationService.AuthorizeAsync(httpRequestData);
 
                 context.Items.Add(Items.Name, claimsPrincipal);
 
@@ -50,33 +50,33 @@ internal sealed class AuthorizationMiddleware : IFunctionsWorkerMiddleware
             }
             catch (ArgumentNullException argumentNullException)
             {
-                this._logger.LogWarning(argumentNullException, "A null argument has been passed: {ExceptionMessage}", argumentNullException.Message);
+                _logger.LogWarning(argumentNullException, "A null argument has been passed: {ExceptionMessage}", argumentNullException.Message);
                 InvokeResult(context, httpRequestData.CreateResponse(HttpStatusCode.BadRequest));
             }
             catch (ArgumentException argumentException)
             {
-                this._logger.LogWarning(argumentException, "An invalid argument has been passed: {ExceptionMessage}", argumentException.Message);
+                _logger.LogWarning(argumentException, "An invalid argument has been passed: {ExceptionMessage}", argumentException.Message);
                 InvokeResult(context, httpRequestData.CreateResponse(HttpStatusCode.BadRequest));
             }
             catch (AuthenticationException authenticationException)
             {
-                this._logger.LogWarning(authenticationException, "An unauthorized request has been detected: {ExceptionMessage}", authenticationException.Message);
+                _logger.LogWarning(authenticationException, "An unauthorized request has been detected: {ExceptionMessage}", authenticationException.Message);
                 InvokeResult(context, httpRequestData.CreateResponse(HttpStatusCode.Unauthorized));
             }
             catch (SecurityException securityException)
             {
-                this._logger.LogCritical(securityException, "An unauthorized request has been detected: {ExceptionMessage}", securityException.Message);
+                _logger.LogCritical(securityException, "An unauthorized request has been detected: {ExceptionMessage}", securityException.Message);
                 InvokeResult(context, httpRequestData.CreateResponse(HttpStatusCode.Forbidden));
             }
             catch (Exception unhandledException)
             {
-                this._logger.LogCritical(unhandledException, "An unhandled exception request has been caught: {ExceptionMessage}", unhandledException.Message);
+                _logger.LogCritical(unhandledException, "An unhandled exception request has been caught: {ExceptionMessage}", unhandledException.Message);
                 InvokeResult(context, httpRequestData.CreateResponse(HttpStatusCode.InternalServerError));
             }
         }
         catch (Exception unhandledException)
         {
-            this._logger.LogCritical(unhandledException, "Unhandled exception caught: {UnhandledException}", unhandledException.Message);
+            _logger.LogCritical(unhandledException, "Unhandled exception caught: {UnhandledException}", unhandledException.Message);
             throw;
         }
     }
