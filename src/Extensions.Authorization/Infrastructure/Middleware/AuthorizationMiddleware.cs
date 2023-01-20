@@ -1,8 +1,6 @@
 using System.Net;
-using System.Reflection;
 using System.Security;
 using System.Security.Authentication;
-using System.Security.Claims;
 using CommunityToolkit.Diagnostics;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Azure.Functions.Worker.Http;
@@ -34,7 +32,7 @@ internal sealed class AuthorizationMiddleware : IFunctionsWorkerMiddleware
     {
         try
         {
-            HttpRequestData? httpRequestData = await context.GetHttpRequestDataAsync();
+            var httpRequestData = await context.GetHttpRequestDataAsync();
 
             if (httpRequestData is null)
             {
@@ -44,9 +42,9 @@ internal sealed class AuthorizationMiddleware : IFunctionsWorkerMiddleware
 
             try
             {
-                ClaimsPrincipal claimsPrincipal = await this._authorizationService.AuthorizeAsync(httpRequestData);
+                var claimsPrincipal = await this._authorizationService.AuthorizeAsync(httpRequestData);
 
-                context.Items.Add("claimsPrincipal", claimsPrincipal);
+                context.Items.Add(Items.Name, claimsPrincipal);
 
                 await next(context);
             }
@@ -85,10 +83,10 @@ internal sealed class AuthorizationMiddleware : IFunctionsWorkerMiddleware
 
     private static void InvokeResult(FunctionContext context, HttpResponseData response)
     {
-        KeyValuePair<Type, object> keyValuePair = context.Features.SingleOrDefault(f => f.Key.Name == "IFunctionBindingsFeature");
-        object functionBindingsFeature = keyValuePair.Value;
-        Type type = functionBindingsFeature.GetType();
-        PropertyInfo result = type.GetProperties().Single(p => p.Name == "InvocationResult");
+        var keyValuePair = context.Features.SingleOrDefault(f => f.Key.Name == "IFunctionBindingsFeature");
+        var functionBindingsFeature = keyValuePair.Value;
+        var type = functionBindingsFeature.GetType();
+        var result = type.GetProperties().Single(p => p.Name == "InvocationResult");
         result.SetValue(functionBindingsFeature, response);
     }
 }
