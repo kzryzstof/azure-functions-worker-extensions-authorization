@@ -18,6 +18,7 @@ internal sealed class ClaimsPrincipalBuilder : IClaimsPrincipalBuilder
     public ClaimsPrincipalBuilder(AuthorizationOptions authorizationOptionsOptions)
     {
         Guard.IsNotNull(authorizationOptionsOptions);
+        Guard.IsNotNull(authorizationOptionsOptions.DiscoveryEndpoints, nameof(authorizationOptionsOptions.DiscoveryEndpoints));
 
         this._authorizationOptions = authorizationOptionsOptions;
     }
