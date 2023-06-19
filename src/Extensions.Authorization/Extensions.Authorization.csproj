@@ -12,11 +12,11 @@
 
     <ItemGroup>
       <PackageReference Include="CommunityToolkit.Diagnostics" Version="8.2.0" />
-      <PackageReference Include="Microsoft.Azure.Functions.Worker.Core" Version="1.11.0" />
-      <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Abstractions" Version="1.1.1" />
+      <PackageReference Include="Microsoft.Azure.Functions.Worker.Core" Version="1.12.1" />
+      <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Abstractions" Version="1.2.0" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="7.0.0" />
-      <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="6.30.0" />
-      <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.30.0" />
+      <PackageReference Include="Microsoft.IdentityModel.Protocols.OpenIdConnect" Version="6.31.0" />
+      <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.31.0" />
     </ItemGroup>
 
 </Project>
