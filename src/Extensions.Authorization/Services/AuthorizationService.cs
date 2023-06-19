@@ -60,13 +60,17 @@ internal sealed class AuthorizationService : IAuthorizationService
         ClaimsPrincipal claimsPrincipal = await this.GetClaimsPrincipalAsync(httpRequestData);
 
         //  Evaluates the applicable policies.
+        var granted = true;
+
         foreach (string applicablePolicy in applicablePolicies)
         {
             AuthorizationPolicy authorizationPolicy = this._authorizationOptions.GetPolicy(applicablePolicy);
 
-            if (await authorizationPolicy.EvaluateAsync(claimsPrincipal))
-                return claimsPrincipal;
+            granted &= await authorizationPolicy.EvaluateAsync(claimsPrincipal);
         }
+
+        if (granted)
+            return claimsPrincipal;
 
         throw new SecurityException();
     }
